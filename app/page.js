@@ -103,9 +103,8 @@ export default function Home() {
         The algorithms come from{' '}
         <MuiLink href="https://machinelearning.js.org">machinelearning.js.org</MuiLink>, a browser
         implementation of Weka; the Bayesian-network work behind K2 is at{' '}
-        <MuiLink href="https://probabilistic.net">probabilistic.net</MuiLink>. Both are by Marin
-        Kokona, as is the code running here — see the{' '}
-        <MuiLink href="/api/tools">tool manifest</MuiLink> to check what the agent was given.
+        <MuiLink href="https://probabilistic.net">probabilistic.net</MuiLink>. The{' '}
+        <MuiLink href="/api/tools">tool manifest</MuiLink> shows exactly what the agent was handed.
       </Typography>
     </Container>
   );
