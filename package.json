@@ -1,0 +1,25 @@
+{
+  "name": "agenticai",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev -p 3300",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.128.0",
+    "@emotion/cache": "latest",
+    "@emotion/react": "latest",
+    "@emotion/styled": "latest",
+    "@mui/icons-material": "^7.3.11",
+    "@mui/material": "^7.3.11",
+    "@mui/material-nextjs": "latest",
+    "d3-force": "^3.0.0",
+    "next": "^16.2.6",
+    "react": "latest",
+    "react-dom": "latest"
+  }
+}
