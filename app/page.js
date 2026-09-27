@@ -39,10 +39,11 @@ export default function Home() {
     <Container maxWidth="lg" sx={{ py: 5 }}>
       <Typography variant="h4" fontWeight={700}>An agent that runs real algorithms</Typography>
       <Typography color="text.secondary" sx={{ mt: 1, maxWidth: 760 }}>
-        A Claude agent given tools over machine-learning implementations I wrote by hand — K2
-        Bayesian structure learning, naive Bayes, k-nearest neighbours, decision trees. No modelling
-        library underneath. It decides which to run, reads the results, and revises. Every tool call
-        it makes is shown below, with its arguments and what came back.
+        A Claude agent given tools over hand-written machine-learning implementations — K2 Bayesian
+        structure learning, naive Bayes, k-nearest neighbours, decision trees. No modelling library
+        underneath: the statistics are the algorithms themselves. The agent decides which to run,
+        reads the results, and revises. Every tool call is shown below, with its arguments and what
+        came back.
       </Typography>
 
       <Stack direction="row" spacing={1} sx={{ mt: 2, flexWrap: 'wrap', gap: 1 }}>
@@ -101,8 +102,10 @@ export default function Home() {
       <Typography variant="body2" color="text.secondary" sx={{ mt: 6 }}>
         The algorithms come from{' '}
         <MuiLink href="https://machinelearning.js.org">machinelearning.js.org</MuiLink>, a browser
-        Weka I built; the Bayesian-network work behind K2 is at{' '}
-        <MuiLink href="https://probabilistic.net">probabilistic.net</MuiLink>.
+        implementation of Weka; the Bayesian-network work behind K2 is at{' '}
+        <MuiLink href="https://probabilistic.net">probabilistic.net</MuiLink>. Both are by Marin
+        Kokona, as is the code running here — see the{' '}
+        <MuiLink href="/api/tools">tool manifest</MuiLink> to check what the agent was given.
       </Typography>
     </Container>
   );

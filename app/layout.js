@@ -1,4 +1,6 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
+import ThemeRegistry from './ThemeRegistry';
 import './globals.css';
 
 export const metadata = {
@@ -10,9 +12,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+        {/* Sets the scheme before first paint, so there is no light flash on a dark OS. */}
+        <InitColorSchemeScript attribute="data-mui-color-scheme" defaultMode="system" />
+        <AppRouterCacheProvider>
+          <ThemeRegistry>{children}</ThemeRegistry>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
