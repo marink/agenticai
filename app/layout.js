@@ -6,8 +6,9 @@ import './globals.css';
 export const metadata = {
   title: 'Agentic AI — an agent that drives real ML algorithms',
   description:
-    'A Claude agent with MCP-shaped tools over hand-written machine-learning implementations: ' +
-    'K2 Bayesian structure learning, naive Bayes, k-NN and decision trees. Every tool call is shown.',
+    'A Claude agent using tools served over MCP: classic machine-learning algorithms, following Weka ' +
+    'and the original papers: K2 Bayesian structure learning, naive Bayes, k-NN and decision trees. ' +
+    'Every tool call is shown.',
 };
 
 export default function RootLayout({ children }) {

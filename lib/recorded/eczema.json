@@ -1,0 +1,602 @@
+{
+  "recordedAt": "2026-09-27",
+  "model": "claude-sonnet-5",
+  "goal": "What drives eczema flares in the eczema data, and how far can you trust the structure you learn?",
+  "trace": [
+    {
+      "kind": "mcp",
+      "server": "/mcp",
+      "tools": [
+        "list_datasets",
+        "describe_dataset",
+        "search_docs",
+        "learn_bayesian_structure",
+        "evaluate_classifier"
+      ]
+    },
+    {
+      "kind": "tool_call",
+      "step": 0,
+      "tool": "list_datasets",
+      "input": {},
+      "output": {
+        "weather": "Tiny classic (14 rows). Play tennis given outlook, temperature, humidity, wind. All nominal.",
+        "contact-lenses": "Small (24 rows). Which lens type to prescribe. All nominal — good for structure learning.",
+        "vote": "US congressional voting records (435 rows, 17 nominal attributes). Party from votes.",
+        "iris": "Fisher’s irises (150 rows). Numeric attributes — NOT suitable for K2 without discretising.",
+        "eczema": "Synthetic eczema data (500 rows, 7 yes/no attributes), sampled from a known Bayesian network. All nominal."
+      },
+      "isError": false,
+      "ms": 13
+    },
+    {
+      "kind": "tool_call",
+      "step": 1,
+      "tool": "describe_dataset",
+      "input": {
+        "dataset": "eczema"
+      },
+      "output": {
+        "rows": 500,
+        "attributes": [
+          {
+            "name": "GeneticRisk",
+            "type": "nominal",
+            "values": [
+              "yes",
+              "no"
+            ]
+          },
+          {
+            "name": "IrritantProducts",
+            "type": "nominal",
+            "values": [
+              "yes",
+              "no"
+            ]
+          },
+          {
+            "name": "DustMiteExposure",
+            "type": "nominal",
+            "values": [
+              "yes",
+              "no"
+            ]
+          },
+          {
+            "name": "HighSugarDiet",
+            "type": "nominal",
+            "values": [
+              "yes",
+              "no"
+            ]
+          },
+          {
+            "name": "BrokenSkinBarrier",
+            "type": "nominal",
+            "values": [
+              "yes",
+              "no"
+            ]
+          },
+          {
+            "name": "Th2Dysregulation",
+            "type": "nominal",
+            "values": [
+              "yes",
+              "no"
+            ]
+          },
+          {
+            "name": "EczemaFlare",
+            "type": "nominal",
+            "values": [
+              "yes",
+              "no"
+            ]
+          }
+        ],
+        "classAttribute": "EczemaFlare",
+        "classDistribution": {
+          "yes": 127,
+          "no": 373
+        },
+        "stats": [
+          {
+            "name": "GeneticRisk",
+            "type": "nominal",
+            "count": 500,
+            "missing": 0,
+            "distinct": 2,
+            "freq": {
+              "no": 380,
+              "yes": 120
+            },
+            "mode": "no"
+          },
+          {
+            "name": "IrritantProducts",
+            "type": "nominal",
+            "count": 500,
+            "missing": 0,
+            "distinct": 2,
+            "freq": {
+              "yes": 296,
+              "no": 204
+            },
+            "mode": "yes"
+          },
+          {
+            "name": "DustMiteExposure",
+            "type": "nominal",
+            "count": 500,
+            "missing": 0,
+            "distinct": 2,
+            "freq": {
+              "no": 236,
+              "yes": 264
+            },
+            "mode": "yes"
+          },
+          {
+            "name": "HighSugarDiet",
+            "type": "nominal",
+            "count": 500,
+            "missing": 0,
+            "distinct": 2,
+            "freq": {
+              "no": 172,
+              "yes": 328
+            },
+            "mode": "yes"
+          },
+          {
+            "name": "BrokenSkinBarrier",
+            "type": "nominal",
+            "count": 500,
+            "missing": 0,
+            "distinct": 2,
+            "freq": {
+              "no": 353,
+              "yes": 147
+            },
+            "mode": "no"
+          },
+          {
+            "name": "Th2Dysregulation",
+            "type": "nominal",
+            "count": 500,
+            "missing": 0,
+            "distinct": 2,
+            "freq": {
+              "no": 331,
+              "yes": 169
+            },
+            "mode": "no"
+          },
+          {
+            "name": "EczemaFlare",
+            "type": "nominal",
+            "count": 500,
+            "missing": 0,
+            "distinct": 2,
+            "freq": {
+              "yes": 127,
+              "no": 373
+            },
+            "mode": "no"
+          }
+        ]
+      },
+      "isError": false,
+      "ms": 16
+    },
+    {
+      "kind": "tool_call",
+      "step": 1,
+      "tool": "search_docs",
+      "input": {
+        "dataset": "eczema",
+        "query": "true Bayesian network structure eczema flare"
+      },
+      "output": {
+        "query": "true Bayesian network structure eczema flare",
+        "results": [
+          {
+            "source": "eczema.arff § Header",
+            "score": 18.34,
+            "text": "Eczema / Atopic Dermatitis — synthetic dataset\nForward-sampled from a 7-node Bayesian Network.\nTrue structure:\n  GeneticRisk, IrritantProducts  -> BrokenSkinBarrier\n  GeneticRisk, DustMiteExposure, HighSugarDiet -> Th2Dysregulation\n  BrokenSkinBarrier, Th2Dysregulation -> EczemaFlare\nGenerated by: scripts/generate-eczema.js\nInstances: 500"
+          }
+        ]
+      },
+      "isError": false,
+      "ms": 12
+    },
+    {
+      "kind": "tool_call",
+      "step": 2,
+      "tool": "learn_bayesian_structure",
+      "input": {
+        "dataset": "eczema"
+      },
+      "output": {
+        "edges": [
+          {
+            "from": "GeneticRisk",
+            "to": "BrokenSkinBarrier"
+          },
+          {
+            "from": "IrritantProducts",
+            "to": "BrokenSkinBarrier"
+          },
+          {
+            "from": "GeneticRisk",
+            "to": "Th2Dysregulation"
+          },
+          {
+            "from": "HighSugarDiet",
+            "to": "Th2Dysregulation"
+          },
+          {
+            "from": "DustMiteExposure",
+            "to": "Th2Dysregulation"
+          },
+          {
+            "from": "BrokenSkinBarrier",
+            "to": "EczemaFlare"
+          },
+          {
+            "from": "Th2Dysregulation",
+            "to": "EczemaFlare"
+          }
+        ],
+        "edgeCount": 7,
+        "perNodeScores": {
+          "GeneticRisk": -278.5803570884409,
+          "IrritantProducts": -340.9613805187786,
+          "DustMiteExposure": -348.6737590605287,
+          "HighSugarDiet": -324.76068132978094,
+          "BrokenSkinBarrier": -250.07516667006053,
+          "Th2Dysregulation": -288.0630698810663,
+          "EczemaFlare": -204.96805581850958
+        },
+        "totalLogScore": -2036.0824703671656,
+        "ordering": "natural",
+        "maxParents": 3
+      },
+      "isError": false,
+      "ms": 21
+    },
+    {
+      "kind": "tool_call",
+      "step": 2,
+      "tool": "learn_bayesian_structure",
+      "input": {
+        "dataset": "eczema",
+        "ordering": [
+          6,
+          5,
+          4,
+          3,
+          2,
+          1,
+          0
+        ]
+      },
+      "output": {
+        "edges": [
+          {
+            "from": "BrokenSkinBarrier",
+            "to": "GeneticRisk"
+          },
+          {
+            "from": "Th2Dysregulation",
+            "to": "GeneticRisk"
+          },
+          {
+            "from": "BrokenSkinBarrier",
+            "to": "IrritantProducts"
+          },
+          {
+            "from": "Th2Dysregulation",
+            "to": "DustMiteExposure"
+          },
+          {
+            "from": "Th2Dysregulation",
+            "to": "HighSugarDiet"
+          },
+          {
+            "from": "EczemaFlare",
+            "to": "BrokenSkinBarrier"
+          },
+          {
+            "from": "EczemaFlare",
+            "to": "Th2Dysregulation"
+          }
+        ],
+        "edgeCount": 7,
+        "perNodeScores": {
+          "GeneticRisk": -230.60295164630247,
+          "IrritantProducts": -325.5216911989329,
+          "DustMiteExposure": -345.13187938976114,
+          "HighSugarDiet": -310.4074209759739,
+          "BrokenSkinBarrier": -262.4811536377108,
+          "Th2Dysregulation": -280.78368951802963,
+          "EczemaFlare": -286.36491465406607
+        },
+        "totalLogScore": -2041.293701020777,
+        "ordering": [
+          6,
+          5,
+          4,
+          3,
+          2,
+          1,
+          0
+        ],
+        "maxParents": 3
+      },
+      "isError": false,
+      "ms": 18
+    },
+    {
+      "kind": "tool_call",
+      "step": 2,
+      "tool": "learn_bayesian_structure",
+      "input": {
+        "dataset": "eczema",
+        "ordering": [
+          0,
+          2,
+          3,
+          1,
+          5,
+          4,
+          6
+        ]
+      },
+      "output": {
+        "edges": [
+          {
+            "from": "GeneticRisk",
+            "to": "BrokenSkinBarrier"
+          },
+          {
+            "from": "IrritantProducts",
+            "to": "BrokenSkinBarrier"
+          },
+          {
+            "from": "GeneticRisk",
+            "to": "Th2Dysregulation"
+          },
+          {
+            "from": "HighSugarDiet",
+            "to": "Th2Dysregulation"
+          },
+          {
+            "from": "DustMiteExposure",
+            "to": "Th2Dysregulation"
+          },
+          {
+            "from": "BrokenSkinBarrier",
+            "to": "EczemaFlare"
+          },
+          {
+            "from": "Th2Dysregulation",
+            "to": "EczemaFlare"
+          }
+        ],
+        "edgeCount": 7,
+        "perNodeScores": {
+          "GeneticRisk": -278.5803570884409,
+          "IrritantProducts": -340.9613805187786,
+          "DustMiteExposure": -348.6737590605287,
+          "HighSugarDiet": -324.76068132978094,
+          "BrokenSkinBarrier": -250.07516667006053,
+          "Th2Dysregulation": -288.0630698810663,
+          "EczemaFlare": -204.96805581850958
+        },
+        "totalLogScore": -2036.0824703671656,
+        "ordering": [
+          0,
+          2,
+          3,
+          1,
+          5,
+          4,
+          6
+        ],
+        "maxParents": 3
+      },
+      "isError": false,
+      "ms": 25
+    },
+    {
+      "kind": "tool_call",
+      "step": 2,
+      "tool": "learn_bayesian_structure",
+      "input": {
+        "dataset": "eczema",
+        "ordering": [
+          3,
+          1,
+          0,
+          2,
+          6,
+          4,
+          5
+        ]
+      },
+      "output": {
+        "edges": [
+          {
+            "from": "EczemaFlare",
+            "to": "BrokenSkinBarrier"
+          },
+          {
+            "from": "GeneticRisk",
+            "to": "BrokenSkinBarrier"
+          },
+          {
+            "from": "IrritantProducts",
+            "to": "BrokenSkinBarrier"
+          },
+          {
+            "from": "EczemaFlare",
+            "to": "Th2Dysregulation"
+          },
+          {
+            "from": "HighSugarDiet",
+            "to": "Th2Dysregulation"
+          },
+          {
+            "from": "GeneticRisk",
+            "to": "Th2Dysregulation"
+          },
+          {
+            "from": "GeneticRisk",
+            "to": "EczemaFlare"
+          }
+        ],
+        "edgeCount": 7,
+        "perNodeScores": {
+          "GeneticRisk": -278.5803570884409,
+          "IrritantProducts": -340.9613805187786,
+          "DustMiteExposure": -348.6737590605287,
+          "HighSugarDiet": -324.76068132978094,
+          "BrokenSkinBarrier": -228.01319925426503,
+          "Th2Dysregulation": -262.8520448923064,
+          "EczemaFlare": -269.73618330386466
+        },
+        "totalLogScore": -2053.5776054479657,
+        "ordering": [
+          3,
+          1,
+          0,
+          2,
+          6,
+          4,
+          5
+        ],
+        "maxParents": 3
+      },
+      "isError": false,
+      "ms": 19
+    },
+    {
+      "kind": "tool_call",
+      "step": 3,
+      "tool": "evaluate_classifier",
+      "input": {
+        "dataset": "eczema",
+        "algorithm": "naiveBayes"
+      },
+      "output": {
+        "algorithm": "naiveBayes",
+        "dataset": "eczema",
+        "folds": 10,
+        "metrics": {
+          "accuracy": 0.792,
+          "correct": 396,
+          "total": 500,
+          "matrix": {
+            "yes": {
+              "yes": 64,
+              "no": 63
+            },
+            "no": {
+              "yes": 41,
+              "no": 332
+            }
+          },
+          "perClass": {
+            "yes": {
+              "tp": 64,
+              "fp": 41,
+              "fn": 63,
+              "precision": 0.6095,
+              "recall": 0.5039,
+              "f1": 0.5517
+            },
+            "no": {
+              "tp": 332,
+              "fp": 63,
+              "fn": 41,
+              "precision": 0.8405,
+              "recall": 0.8901,
+              "f1": 0.8646
+            }
+          },
+          "kappa": 0.4179
+        }
+      },
+      "isError": false,
+      "ms": 24
+    },
+    {
+      "kind": "tool_call",
+      "step": 3,
+      "tool": "evaluate_classifier",
+      "input": {
+        "dataset": "eczema",
+        "algorithm": "decisionTree"
+      },
+      "output": {
+        "algorithm": "decisionTree",
+        "dataset": "eczema",
+        "folds": 10,
+        "metrics": {
+          "accuracy": 0.772,
+          "correct": 386,
+          "total": 500,
+          "matrix": {
+            "yes": {
+              "yes": 51,
+              "no": 76
+            },
+            "no": {
+              "yes": 38,
+              "no": 335
+            }
+          },
+          "perClass": {
+            "yes": {
+              "tp": 51,
+              "fp": 38,
+              "fn": 76,
+              "precision": 0.573,
+              "recall": 0.4016,
+              "f1": 0.4722
+            },
+            "no": {
+              "tp": 335,
+              "fp": 76,
+              "fn": 38,
+              "precision": 0.8151,
+              "recall": 0.8981,
+              "f1": 0.8546
+            }
+          },
+          "kappa": 0.3325
+        }
+      },
+      "isError": false,
+      "ms": 38
+    },
+    {
+      "kind": "thought",
+      "step": 4,
+      "text": "## What drives eczema flares\n\nThe documented generative structure for this synthetic dataset (`eczema.arff` header) is:\n\n```\nGeneticRisk, IrritantProducts        -> BrokenSkinBarrier\nGeneticRisk, DustMiteExposure, HighSugarDiet -> Th2Dysregulation\nBrokenSkinBarrier, Th2Dysregulation   -> EczemaFlare\n```\n\nSo a flare is *directly* driven by only two things — a **broken skin barrier** and **Th2 immune dysregulation** — and those two are each driven by upstream risk factors (genetics + irritants for the barrier; genetics + dust mites + sugar diet for Th2 dysregulation). Genetic risk is the one factor that feeds both pathways.\n\n**K2 recovers this exactly**, but only when given an ordering compatible with the causal order:\n- Natural order (0..6) and a shuffled-but-causally-consistent order `[GeneticRisk, DustMiteExposure, HighSugarDiet, IrritantProducts, Th2Dysregulation, BrokenSkinBarrier, EczemaFlare]` both reproduce the true 7 edges exactly, with identical total log score (-2036.08).\n- Fully reversing the order (children-before-parents) reproduces the same *undirected skeleton* (same 7 connections) but every arrow is flipped — expected, since K2 can only orient edges forward through the given order. Score is only marginally worse (-2041.29), so the score alone doesn't tell you which direction is right; you need the ordering (or domain knowledge) to fix causal direction.\n- A genuinely scrambled order (mixing effects before their causes, e.g. putting EczemaFlare and DustMiteExposure out of causal sequence) **breaks the recovery**: it misses the true DustMiteExposure→Th2Dysregulation edge (impossible given that ordering) and invents a spurious GeneticRisk→EczemaFlare edge instead. This version also scores clearly worse (-2053.58 vs -2036.08), so the algorithm's own score does at least penalize the wrong-order model, even though it can't fully recover the truth.\n\n**Predictive check:** a naive Bayes classifier using all six risk factors predicts EczemaFlare at 79.2% accuracy (κ=0.42), and a decision tree gets 77.2% (κ=0.33) — both far from perfect, both confirming the \"yes\" (flare) class is the harder one to call (recall only ~40-50%). This matches the true model: flares depend on two intermediate yes/no variables, not directly and deterministically on the six root causes, so any flat classifier over the raw predictors leaves real residual uncertainty.\n\n**How far to trust this:** the structure is trustworthy here because (a) it was recovered identically under two different valid orderings and (b) it matches the documented ground-truth network exactly. But that agreement is largely a property of this being synthetic, forward-sampled data with a known small DAG — in general K2's output is only as good as the ordering you supply, and this experiment demonstrates concretely that a causally-wrong ordering yields both missing real edges and fabricated ones. With 500 rows and only binary variables the statistics are reasonably solid, but on real (non-synthetic) eczema data you would not have the \"true\" order to check against, so the correct practice is exactly what was done here: run several orderings and treat only edges that survive reordering as real, and treat the direction of causality as unresolved unless supported by outside domain knowledge."
+    }
+  ],
+  "usage": {
+    "input_tokens": 21038,
+    "output_tokens": 3509
+  },
+  "costUsd": 0.1157,
+  "stoppedBecause": "completed",
+  "limits": {
+    "maxSteps": 8,
+    "maxTokensPerRun": 4000
+  }
+}
