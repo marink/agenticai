@@ -58,7 +58,8 @@ export default function Showcase({ recorded, tools, live, connect, limits }) {
             at the data first, test a claim instead of asserting it, say what is uncertain — and the
             rest is the model's own choice. It reaches the tools over MCP: it asks this app's MCP server
             what tools exist (<code>tools/list</code>) and runs each one through it
-            (<code>tools/call</code>), as any other MCP client could.
+            (<code>tools/call</code>), as any other MCP client could &mdash; the server is open to
+            outside clients too, by invitation, so ask if you would like to point your own at it.
             <Stack spacing={1.25} sx={{ mt: 2 }}>
               {tools.map(t => (
                 <Box key={t.name}>
@@ -76,6 +77,19 @@ export default function Showcase({ recorded, tools, live, connect, limits }) {
             was generated from, and grades its result against it. With causes ordered before effects,
             K2 recovered that network edge for edge; a shuffled order added links that are not in it,
             and the agent said so.
+          </Section>
+
+          <Section title="And it got one thing wrong">
+            In the shuffled run the agent says the true DustMiteExposure &rarr; Th2Dysregulation edge
+            was &ldquo;impossible given that ordering&rdquo;. That is not right, and the run itself
+            shows why: the ordering was HighSugarDiet, IrritantProducts, GeneticRisk,
+            DustMiteExposure, EczemaFlare, BrokenSkinBarrier, Th2Dysregulation. K2 may take parents
+            only from earlier in the order, and DustMiteExposure comes fourth while Th2Dysregulation
+            comes last &mdash; so that edge was available. K2 scored EczemaFlare, HighSugarDiet and
+            GeneticRisk higher and did not choose it. The agent attributed to a structural constraint
+            what was really a scoring outcome. Its numbers and comparisons are correct; this one
+            explanation is not. The replay is left as it ran rather than re-recorded, because what an
+            agent actually said is more useful than a clean take.
           </Section>
 
           <Section title="It says how sure it is">
