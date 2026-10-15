@@ -4,6 +4,7 @@ import {
   Alert, Box, Button, CircularProgress, Container, Link as MuiLink, Paper, Stack,
   TextField, Typography,
 } from '@mui/material';
+import PaperCard from '@/components/PaperCard';
 
 const EXAMPLES = [
   'Which variables actually drive the decision in contact-lenses? Check whether the structure holds if you reorder.',
@@ -44,6 +45,8 @@ export default function Showcase({ recorded, tools, live, connect, limits }) {
         that introduced them. It decides which to
         run, reads the results, and revises. The window shows a recorded run, replayed step by step.
       </Typography>
+
+      <PaperCard />
 
       <Box sx={{
         mt: { xs: 3, md: 4 },
