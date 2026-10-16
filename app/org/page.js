@@ -294,7 +294,7 @@ export default function Org() {
       <P>
         Is the human job here really just routing, verifying, and holding the whole picture? The
         evidence says there is a fourth, and it is the one I kept doing without noticing:{' '}
-        <b>deciding what matters.</b> No agent ever prioritised anything.
+        <b>deciding what matters.</b> No agent ever prioritized anything.
       </P>
       <P>
         If moving context is the real constraint, what is the <i>unit</i> of context? A brief? A

@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 /**
  * Entry point to /org. The mark is an inline animated SVG rather than a GIF: it inherits the
- * MUI colour scheme, stays sharp on any display, weighs nothing, and needs no asset pipeline.
+ * MUI color scheme, stays sharp on any display, weighs nothing, and needs no asset pipeline.
  * A sheet of paper with lines of text writing themselves, folding into an envelope flap.
  */
 function PaperMark() {
