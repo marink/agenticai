@@ -2,6 +2,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 import ThemeRegistry from './ThemeRegistry';
 import './globals.css';
+import SiteFooter from '../components/SiteFooter';
 
 export const metadata = {
   title: 'Agentic AI — an agent that drives real ML algorithms',
@@ -18,7 +19,10 @@ export default function RootLayout({ children }) {
         {/* Sets the scheme before first paint, so there is no light flash on a dark OS. */}
         <InitColorSchemeScript attribute="data-mui-color-scheme" defaultMode="system" />
         <AppRouterCacheProvider>
-          <ThemeRegistry>{children}</ThemeRegistry>
+          <ThemeRegistry>
+            {children}
+            <SiteFooter />
+          </ThemeRegistry>
         </AppRouterCacheProvider>
       </body>
     </html>

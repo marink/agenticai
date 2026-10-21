@@ -290,6 +290,36 @@ export default function Org() {
         from the outside.
       </P>
 
+      <H>Eight gates, and what each one cost to learn</H>
+      <P>
+        Everything so far is about information flow, which is the trouble with it &mdash; easy to
+        assert and hard to argue with. Underneath it there is a mechanical half: eight primitives,
+        each of which exists because something broke without it.
+      </P>
+      <P>
+        Briefly. An address names a role rather than a machine. A message is a file that is never
+        written twice, so two writers cannot collide and the last one to save cannot quietly win.
+        Freshness is a cheap predicate with an exit code, not a timer, and delivery is pull rather
+        than push &mdash; nothing wakes up on its own. <b>Receipt is not authorization:</b> reading
+        a message does not license acting on it. Refusal carries a redirect. Verification means
+        reading the origin back, because a transport returning success is only making a claim about
+        itself. And the durability boundary is explicit &mdash; what is not committed did not
+        happen.
+      </P>
+      <P>
+        They compose into one line you can argue with: an action is permitted when it is{' '}
+        <b>delivered and authorized and verified</b>, and most of the interesting failures are
+        systems that implement one term and quietly assume the rest.
+      </P>
+      <P>
+        <Link href="/org/protocol" style={{ fontWeight: 600 }}>
+          The protocol in full &rarr;
+        </Link>{' '}
+        <Box component="span" sx={{ opacity: 0.7 }}>
+          &mdash; the eight gates one by one, the shape of a message, and the diagrams.
+        </Box>
+      </P>
+
       <H>Open questions I am stuck on</H>
       <P>
         Is the human job here really just routing, verifying, and holding the whole picture? The
